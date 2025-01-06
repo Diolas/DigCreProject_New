@@ -1,8 +1,10 @@
 # DigCre_Project
 
-This is the readme file for a project in the module **Digital Creativity** at Lucerne University of Applied Sciences and Arts. The goal of this project is to visualize piano learning progress using AI-generated images based on MIDI data captured from piano practice sessions. The fi
+This is the readme file for a project in the module **Digital Creativity** at Lucerne University of Applied Sciences and Arts. The goal of this project is to visualize piano learning progress using AI-generated images based on MIDI data captured from piano practice sessions. 
 
 ---
+## Note on Audio
+The audio files for each run were recorded and are stored in their respective folders. Unfortunately, I have not found a way to make them playable directly within the browser.
 
 ## Idea
 
@@ -17,8 +19,6 @@ The more sections I play in a run, the more familiar I am with the song. It’s 
   <img src="Pictures/Progress.png" alt="Progress" width="400">
 </div>
 
-
-
 ---
 
 ## Implementation
@@ -29,7 +29,7 @@ The project implementation involves capturing MIDI data from a keyboard, process
 
 ### Segmenting the Data 
 
-The function "segment_midi_data" from the [midi_capture.py](Python%20Code/Prototype/midi_capture.py) segments MIDI data into smaller sections, each containing a specified number of notes (default is 8 in the prototype). It processes the input list of notes, where each note has pitch, velocity, and timestamp values. For each section, it collects notes until it reaches the specified size or the end of the input. Once a section is complete, it calculates features like pitch range, average velocity, tempo, rhythm complexity, note density, and the dominant octave based on the collected notes. These features provide insights into the musical structure of each section. After calculating the features, the section is stored, and the process repeats for the remaining notes until all data is processed.
+The function "segment_midi_data" from the [midi_extract.py](Python%20Code/Prototype/midi_extract.py) segments MIDI data into smaller sections, each containing a specified number of notes (default is 8 in the prototype). It processes the input list of notes, where each note has pitch, velocity, and timestamp values. For each section, it collects notes until it reaches the specified size or the end of the input. Once a section is complete, it calculates features like pitch range, average velocity, tempo, rhythm complexity, note density, and the dominant octave based on the collected notes. These features provide insights into the musical structure of each section. After calculating the features, the section is stored, and the process repeats for the remaining notes until all data is processed.
 
 This can be changed depending on the desired number of generated pictures and the amount of notes in a song. 
 
@@ -46,29 +46,137 @@ It sends a POST request to the API with the provided prompt and authorization he
 
 If the API responds with a 503 status code, indicating that the model is still loading, the function waits for 60 seconds before retrying, allowing the server time to become available. It retries up to 5 times before giving up.
 
+### Capturing Audio
+
+The file [sound_capture.py](Python%20Code/Prototype/sound_capture.py) records audio from the microphone for a given duration and saves it as a WAV file. It uses the sounddevice library to capture mono audio at a specified sample rate, then writes the data to a 16-bit WAV file. This is mainly done to present it in a project later, it is not a necessary step. 
+
+### Main Script 
+
+The main function orchestrates the simultaneous capture of audio and MIDI data, then processes the MIDI data to generate images based on extracted musical features.
+
+First, it ensures the specified output folder exists, creating it if necessary. It then initializes a stop flag to control when MIDI data capture should stop and defines an empty list to store captured MIDI notes.
+
+Two threads are created—one for recording audio and another for capturing MIDI data. The audio thread records audio for a fixed duration (default 15 seconds) and saves it as a WAV file. Meanwhile, the MIDI thread extracts MIDI features until the stop flag is set, which happens after the audio thread completes.
+
+Once both threads finish, the function checks whether MIDI data was captured. If it was, it segments the data into sections, generates prompts for each section, and uses these prompts to create corresponding images, saving them in the output folder.
 
 ---
 
-## First Iteration
+## Protype Iteration
 
-- Captured MIDI data from basic piano exercises.
-- Used simple AI models to generate abstract images.
-- Tested various visualization styles to understand what works best.
+A preliminary prototype was developed before the interim presentation of this module, primarily serving as a technical proof of concept to evaluate the feasibility of the idea. Following this, a more refined and functional prototype was created, incorporating the implementation previously described.
 
-### Code Files
-The following code files are part of this iteration:
+The first test run of the prototype was conducted using the song "Can't Help Falling in Love" by Elvis Presley.
 
-1. [midi_capture.py](Python%20Code/midi_capture.py) - Script for capturing MIDI data.
-2. [image_generator.py](Python%20Code/image_generator.py) - AI model for generating images.
-3. [data_processing.py](Python%20Code/data_processing.py) - Preprocessing MIDI data for visualization.
+The prompt was: A balanced and reflective scene with vibrant colors with medium contrast, featuring green and teal hues reflecting the notes 73 and 60 and smooth and minimal textures.
 
+<div align="center">
+  <img src="Pictures/chfil1.png" alt="Cant help falling in love run 1 " width="400">
+</div>
+
+Since the AI model included the notes in the image, the mentioning of specific notes was deleted. 
+
+<div align="center">
+  <img src="Pictures/chfil2.png" alt="Cant help falling in love run 2 " width="400">
+</div>
+
+This resulted in a better outcome, however the "note" was still visible in a way it shouldn't be. 
+The solve this the promt was completely altered to just include the color names. 
+To also be able to better distinct the sections i thought it was a great idea to assign a specific color to each note using hex codes. 
+
+<div align="center">
+  <img src="Pictures/colornote.png" alt="Color Notes " width="400">
+</div>
+
+As you are probably guessing now this resulted in the AI printing the HEX Codes. 
+
+<div align="center">
+  <img src="Pictures/colorrun.png" alt="Color Run " width="400">
+</div>
+
+To solve this the names were written with the proper names. 
+
+<div align="center">
+  <img src="Pictures/notenames.png" alt="Note Names" width="400">
+</div>
+
+This led to the desired outcome.
+
+<div align="center">
+  <img src="Pictures/happy.png" alt="Happy" width="400">
+</div>
 
 ---
+## Prompt definition update 
 
-## Second Iteration
+The prompt generator function was updated to detect more subtle changes within the song.
 
-- Improved data preprocessing to include velocity and timing nuances.
-- Experimented with different AI visualization tools to create more expressive and detailed images.
-- Added comparisons to show how progress evolves over time.
+This updated prompt generator introduces several enhancements to produce more detailed and expressive visual descriptions based on MIDI features. It expands mood categories to cover a wider range of tempos, from calm and meditative to intense and overwhelming, offering more nuanced interpretations of musical tempo. The intensity descriptions are improved, providing vivid imagery such as pastel tones, balanced contrasts, or sharp transitions based on velocity. A manual mapping of MIDI notes to specific colors has been added, assigning colors to pitches between 21 and 88, allowing the pitch range to contribute dynamically to the color scheme. Textures vary based on rhythmic complexity, ranging from smooth and flowing lines to chaotic fractals, while visual density descriptions reflect note density, adding minimalist, balanced, or densely overlapping forms. Pitch transitions are described using smooth gradients, hue shifts, or vivid spectrums, depending on the size of the pitch range.
 
+## Real Iteration 
+
+For the first real iteration the song "Set Fire to the Rain" by Adele (one of my absolute favourite artists) was chosen. 
+
+The first run had the expexted outcome: 
+
+<div align="center"> <img src="Pictures/adele1.png" alt="Adele Run 1" width="400"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain_1/captured_audio.wav">Audio</a>
+</div>
+
+The second run went much better resulting in a number of generated images. To lower this number the size of the sections was increased for further runs. 
+
+<div align="center"> <img src="Pictures/adele2.png" alt="Adele Run 2" width="800"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain_2/captured_audio.wav">Audio</a>
+</div>
+
+The song was then played a number of times. The respectives run can be seen in the folder [SetFireToTheRain](SetFireToTheRain/) for run 1 - 7. 
+
+An example includes the images generated in run 4: 
+
+<div align="center"> <img src="Pictures/exampleadele.png" alt="Adele Run 4" width="600"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain_4/captured_audio.wav">Audio</a>
+</div>
+
+### Include Lyrics 
+Since this approach worked well, I also wanted to incorporate the lyrics of the song into the prompt, allowing the AI to reflect their essence in the image — figuratively, not literally.
+
+First i just added the lyrics at the bottom of the prompt. This was not taken into account when the image was generated and while the last images lookes slightly different, the lyrics were not represented. 
+
+<div align="center"> <img src="Pictures/adele3.png" alt="Adele Run 8" width="400"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain_8/captured_audio.wav">Audio</a>
+</div>
+
+The lyrics were then condensed to just the opening lines of the song. The goal was to integrate the lyrics into the corresponding sections, ensuring each prompt reflected the mood and meaning of the lyrics for that part. This did also not work how i expected, since i wanted the original picture just so much altered that it reflected the lyrics. Not have the lyrics printed on there. 
+
+<div align="center"> <img src="Pictures/prompt.png" alt="Adele Run 9" width="600"> </div> <div align="center"> </div>
+<div align="center"> <img src="Pictures/lyrics.png" alt="Adele Run 9" width="600"> </div> <div align="center"> </div>
+
+In run 10, I simply added the title of the song at the beginning, hoping it would achieve the desired effect.
+It did not. 
+
+<div align="center"> <img src="Pictures/adele10.png" alt="Adele Run 10" width="300"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain_9/captured_audio.wav">Audio</a>
+</div>
+
+Then i put it like this at the beginning: "Visualize a scene with the context of SET FIRE TO THE RAIN with the following features". 
+Oddly enought this resulted in images as in the first few runs where the context of lyrics was not added. 
+
+<div align="center"> <img src="Pictures/run11.png" alt="Adele Run 10" width="600"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain_9/captured_audio.wav">Audio</a>
+</div>
+
+
+### Artstyles 
 
