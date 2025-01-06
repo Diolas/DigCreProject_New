@@ -14,7 +14,7 @@ The initial idea for this project is to use MIDI data recorded during piano prac
 
 The project implementation involves capturing MIDI data from a keyboard, processing the data for visualization, and using AI tools to create the images. The process is iterative, with each stage refining the approach to ensure the visualizations effectively convey the desired aspects of learning progress. 
 
-![Approach 2](pictures/Appraoch2.png)
+![Approach 2](Pictures/Appraoch2.png)
 
 
 ---
