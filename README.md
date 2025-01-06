@@ -8,11 +8,15 @@ This is the readme file for a project in the module **Digital Creativity** at Lu
 
 This project uses MIDI data recorded during piano practice to create visual representations of learning progress. The data captured from the MIDI is used to define unique prompts based on what was played. To capture the "process," each run of playing the same song is split into defined sections. This is because, as a beginner, I tend to restart the song if I make a mistake. 
 
-![Approach 2](Pictures/Sections.png)
+![Sections](Pictures/Sections.png)
 
 The more sections I play in a run, the more familiar I am with the song. It’s important to note that this idea is not meant to measure the quality of piano playing but rather the progress of learning the song. The song can be played completely wrong—as long as more notes are pressed, it still counts as "progress."
 
-![Approach 2](Pictures/Progress.png)
+
+<div align="center">
+  <img src="Pictures/Progress.png" alt="Progress" width="400">
+</div>
+
 
 
 ---
@@ -21,7 +25,7 @@ The more sections I play in a run, the more familiar I am with the song. It’s 
 
 The project implementation involves capturing MIDI data from a keyboard, processing the data for visualization, and using an AI model to create the images. The e-piano or keyboard if first conntected to a computer via a midi cable. A python script will capture the midi data and transform the information into a readable promt for an AI model. The model i accessed via hugging face and passed the prompt. The AI then gives back the generated image. 
 
-![Approach 2](Pictures/Appraoch2.png)
+![Approach](Pictures/Appraoch2.png)
 
 ### Segmenting the Data 
 
@@ -31,7 +35,7 @@ This can be changed depending on the desired number of generated pictures and th
 
 ### Defining Prompts 
 
-The function "generate_prompt" from the [midi_capture.py](Python%20Code/Prototype/prompt_generator.py) generates a descriptive prompt for visualizing MIDI data based on the musical features extracted from a segment. It analyzes the tempo, velocity, pitch, and rhythmic complexity to determine mood, intensity, color schemes, and textures.
+The function "generate_prompt" from the [prompt_generator.py](Python%20Code/Prototype/prompt_generator.py) generates a descriptive prompt for visualizing MIDI data based on the musical features extracted from a segment. It analyzes the tempo, velocity, pitch, and rhythmic complexity to determine mood, intensity, color schemes, and textures.
 
 The tempo defines whether the mood is calm, balanced, or energetic. Velocity influences color intensity, with softer velocities leading to pastel tones and higher velocities producing bolder colors. The average pitch selects the dominant color scheme, transitioning from cool blues to warm yellows as pitch increases. Finally, rhythmic complexity determines the texture—simpler patterns for low complexity and intricate designs for higher values.
 
