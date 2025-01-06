@@ -179,4 +179,31 @@ Oddly enought this resulted in images as in the first few runs where the context
 
 
 ### Artstyles 
+I then experimented with different well-known art styles, such as Art Nouveau and Van Gogh. This approach worked surprisingly well—or at least came the closest to incorporating the lyrics into the images.
 
+Art Nouveau: 
+<div align="center"> <img src="artstyle_experiment/ArtNouveau_Test.png" alt="Art Nouveau" width="600"> </div> <div align="center"> </div>
+
+Van Gogh: 
+<div align="center"> <img src="artstyle_experiment/vangogh_test.png" alt="Van Gogh" width="600"> </div> <div align="center"> </div>
+<div align="center"> <img src="artstyle_experiment/vangogh_test_2.png" alt="Van Gogh" width="600"> </div> <div align="center"> </div>
+
+Impressionism: 
+<div align="center"> <img src="artstyle_experiment/impressionism.png" alt="Impressionism" width="600"> </div> <div align="center"> </div>
+
+I attempted one final run of playing "Set Fire to the Rain" using Impressionism as the style. The prompt specified, "Art Nouveau-like artwork where FIRE meets RAIN with the following features."
+<div align="center"> <img src="Pictures/artnouveau.png" alt="Impressionism" width="600"> </div> <div align="center"> </div>
+
+<div align="center">
+  <a href="SetFireToTheRain/setfiretotherain12_artnouveau/captured_audio.wav">Audio</a>
+</div>
+
+## Final Thoughts 
+
+The project was a lot of fun, even though it didn’t fully produce the outcome I had envisioned. If I had more time, I would have focused on perfecting the integration of lyrics into the images. I also would have dedicated an entire run to the Van Gogh style, as it turned out to be my favorite in hindsight.
+
+Additionally, I wanted to incorporate some music theory into the color definitions, as suggested by a classmate during the final presentation. While I ultimately didn’t have enough time to explore this idea, I think it’s a great direction for further development.
+
+Looking ahead, it could also be interesting to implement a video feature, transforming the project into a moving visual experience rather than just static images.
+
+Disclaimer: ChatGPT was used to comment and debug code and refine the text.
