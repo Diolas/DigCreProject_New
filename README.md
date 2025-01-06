@@ -12,8 +12,11 @@ This project uses MIDI data recorded during piano practice to create visual repr
 
 The more sections I play in a run, the more familiar I am with the song. It’s important to note that this idea is not meant to measure the quality of piano playing but rather the progress of learning the song. The song can be played completely wrong—as long as more notes are pressed, it still counts as "progress."
 
-![Progress](Pictures/Progress.png)
-<img src="Pictures/Progress.png" alt="Progress" width="400">
+
+<div align="center">
+  <img src="Pictures/Progress.png" alt="Progress" width="400">
+</div>
+
 
 
 ---
