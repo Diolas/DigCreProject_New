@@ -6,13 +6,16 @@ This is the readme file for a project in the module **Digital Creativity** at Lu
 
 ## Idea
 
-The initial idea for this project is to use MIDI data recorded during piano practice to create visual representations of learning progress. By analyzing and interpreting the musical data, the AI will generate unique images that reflect the performance's emotion, complexity, and structure. *(Write more details here later.)*
+The initial idea for this project is to use MIDI data recorded during piano practice to create visual representations of learning progress. The data captured from the midi will be used to define unique prompts based on what was played. 
 
 ---
 
 ## Implementation
 
-The project implementation involves capturing MIDI data from a keyboard, processing the data for visualization, and using AI tools to create the images. The process is iterative, with each stage refining the approach to ensure the visualizations effectively convey the desired aspects of learning progress. *(Add more details here as needed.)*
+The project implementation involves capturing MIDI data from a keyboard, processing the data for visualization, and using AI tools to create the images. The process is iterative, with each stage refining the approach to ensure the visualizations effectively convey the desired aspects of learning progress. 
+
+![Approach 2](pictures/Appraoch2.png)
+
 
 ---
 
